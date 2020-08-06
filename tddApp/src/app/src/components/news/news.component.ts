@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { of } from 'rxjs';
 import { DataService } from '../../services/data.service';
 
 
@@ -8,17 +7,17 @@ import { DataService } from '../../services/data.service';
   templateUrl: './news.component.html',
   styleUrls: ['./news.component.less']
 })
+
 export class NewsComponent implements OnInit {
 
-  news$;
+   articles: Array<any>;
 
-  constructor( private dataService: DataService) { }
+  constructor( private dataService: DataService) {
+    console.log('app component constructor called'); 
+   }
 
   ngOnInit() {
-
-     this.news$ = this.dataService.getNews$();
-
-    
+     this.dataService.getNews$().subscribe( data => this.articles = data['articles']);
   }
 
 }
